@@ -39,14 +39,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBHandler.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="Events.cs" />
+    <Compile Include="BusinessLogic.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\DataLayer.csproj">
+    <ProjectReference Include="..\Data\Data.csproj">
       <Project>{138019a8-0a0b-42e1-84fc-51c0c3546fe5}</Project>
-      <Name>DataLayer</Name>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{22d2106d-874a-439c-a5e2-f2682d7da695}</Project>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
