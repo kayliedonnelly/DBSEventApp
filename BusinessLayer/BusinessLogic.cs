@@ -35,7 +35,8 @@ namespace Business
         //Check if the login is successful
         public bool UserLogin(string usernameLogin, string passwordLogin)
         {
-            string[] userdata = da.GetUserInfo(usernameLogin);
+            User user = new User(usernameLogin, passwordLogin);
+            string[] userdata = da.GetUserInfo(user);
             if (userdata == null)
             {
                 return false;
@@ -46,7 +47,8 @@ namespace Business
         //Check if the sign up is successful
         public bool UserSignup(string usernameSignup, string passwordSignup)
         {
-            bool signupStatus = da.InsertUserInfo(usernameSignup, passwordSignup);
+            User user = new User(usernameSignup, passwordSignup);
+            bool signupStatus = da.InsertUserInfo(user);
 
             if (signupStatus)
             {
@@ -105,7 +107,7 @@ namespace Business
         }
 
         //Create an order
-        public void CreateOrder(int EventID, int ticketQuantity, string firstName, string lastName, string email, int phoneNumber)
+        public void InsertOrder(int EventID, int ticketQuantity, string firstName, string lastName, string email, int phoneNumber)
         {
             Order currentOrder = new Order(EventID, ticketQuantity, firstName, lastName, email, phoneNumber);
             da.InsertOrderInfo(currentOrder);

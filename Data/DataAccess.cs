@@ -57,10 +57,13 @@ namespace Data
         }
 
         //Get user details from the database
-        public string[] GetUserInfo(string username)
+        public string[] GetUserInfo(User u)
         {
-            SqlCommand c = new SqlCommand("SELECT * from User WHERE username = @username", conn);
-            c.Parameters.AddWithValue("@username", username);
+            //Value for order information
+            string username = u.Username;
+
+            SqlCommand c = new SqlCommand("SELECT * from [User] WHERE username = @usernameLogin", conn);
+            c.Parameters.AddWithValue("@usernameLogin", username);
             try
             {
                 if (conn.State != ConnectionState.Open)
@@ -71,8 +74,8 @@ namespace Data
                 if (r.Read())
                 {
                     string[] ret = new string[2];
-                    ret[0] = r[0].ToString();
-                    ret[1] = r[1].ToString();
+                    ret[0] = r[1].ToString();
+                    ret[1] = r[2].ToString();
                     return ret;
                 }
             }
@@ -84,11 +87,15 @@ namespace Data
         }
 
         //Insert user details into the database
-        public bool InsertUserInfo(string usernameSignup, string passwordSignup)
+        public bool InsertUserInfo(User u)
         {
+            //Value for order information
+            string username= u.Username;
+            string password = u.Password;
+
             SqlCommand c = new SqlCommand("INSERT INTO [User] (username, password) VALUES(@usernameSignup, @passwordSignup)", conn);
-            c.Parameters.AddWithValue("@usernameSignup", usernameSignup);
-            c.Parameters.AddWithValue("@passwordSignup", passwordSignup);
+            c.Parameters.AddWithValue("@usernameSignup", username);
+            c.Parameters.AddWithValue("@passwordSignup", password);
             try
             {
                 int i = c.ExecuteNonQuery();
@@ -111,7 +118,6 @@ namespace Data
         public bool InsertEventInfo(Event e)
         {
             //Value for event information
-            //int eventID = -1;
             string eventName = e.EventName;
             string eventType = e.EventType;
             string eventVenue = e.EventVenue;
@@ -203,7 +209,7 @@ namespace Data
         //Insert Order into the database
         public int InsertOrderInfo(Order o)
         {
-            //Value for event information
+            //Value for order information
             int orderID = -1;
             int eventID = o.EventID;
             int ticketQuantity = o.TicketQuantity;

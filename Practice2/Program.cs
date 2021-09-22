@@ -179,7 +179,7 @@ namespace EventsApp
                                                                 string email = Console.ReadLine();
                                                                 Console.Write("Please enter your phone number: ");
                                                                 int.TryParse(Console.ReadLine(), out int phoneNumber);
-                                                                bl.CreateOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                bl.InsertOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
 
 
                                                                 break;
@@ -196,7 +196,8 @@ namespace EventsApp
                                                         } //Do while
                                                         break;
                                                     case 5:
-                                                        Console.WriteLine("Quit");
+                                                        //Quit
+                                                        Console.WriteLine("\nThank you for using the Events App. Goodbye.");
                                                         break;
                                                     default:
                                                         Console.WriteLine("Not a valid option. Please choose an option between 1-5.");
