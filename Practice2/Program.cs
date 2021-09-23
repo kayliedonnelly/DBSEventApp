@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace EventsApp
                         if (successConnect)
                         {
                             //Main Menu - Ask the user to login, sign up or quit
-                            Console.WriteLine("\n********************Events App*************************\n");
+                            Console.WriteLine("\n********************Login*************************\n");
                             Console.WriteLine("1. Login");
                             Console.WriteLine("2. Sign Up");
                             Console.Write("\nPlease choose option 1 or 2: ");
@@ -140,7 +141,7 @@ namespace EventsApp
                                                         bool successEventDelete = bl.DeleteEvent(eventIDDelete); //Call the DeleteEvent method in the BusinessLogic
                                                         if (successEventDelete)
                                                         {
-                                                            Console.WriteLine("\nEvent Delete Successful\n");
+                                                            Console.WriteLine("\nEvent Deleted Successfully\n");
                                                         }
                                                         else
                                                         {
@@ -161,8 +162,22 @@ namespace EventsApp
                                                         {
                                                             //Search all events
                                                             case 1:
+                                                                List<Event> eventList = bl.SearchAllEvents(); //Call the SearchAllEvents method in the BusinessLogic
+                                                                foreach(Event e in eventList)
+                                                                {
+                                                                    Console.WriteLine("\n*******************All Events***********************\n");
+                                                                    Console.WriteLine("Event ID: " + e.EventID);
+                                                                    Console.WriteLine("Event Name: " + e.EventName);
+                                                                    Console.WriteLine("Event Type: " + e.EventType);
+                                                                    Console.WriteLine("Event Venue: " + e.EventVenue);
+                                                                    Console.WriteLine("Event Date and Time: " + e.EventDateTime);
+                                                                    Console.WriteLine("Event County: " + e.EventCounty);
+                                                                    Console.WriteLine("Event Ticket Price: " + e.TicketPrice);
+                                                                }
+
                                                                 //display a list of all events
-                                                                //Choose an event 
+                                                                //Ask the user to choose an event 
+                                                                //Ask the user if they want to add, update, delete or buy tickets to the event
                                                                 //Order tickets to the event
 
                                                                 //Ask the user for the order input

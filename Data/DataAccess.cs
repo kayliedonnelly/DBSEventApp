@@ -253,6 +253,43 @@ namespace Data
             }
             return orderID;
         }
+
+        //Get event details from the database
+        public List<Event> SearchAllEvents()
+        {
+            SqlCommand c = new SqlCommand("SELECT * from [Event]", conn);
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                List<Event> eventList = new List<Event>();
+
+                SqlDataReader r = c.ExecuteReader();
+
+                while (r.Read())
+                {
+                    Event eventItem = new Event();
+                    eventItem.EventID = (int)r.GetInt32(0);
+                    eventItem.EventName = r.GetString(1);
+                    eventItem.EventType = r.GetString(2);
+                    eventItem.EventVenue = r.GetString(3);
+                    eventItem.EventDateTime = r.GetString(4);
+                    eventItem.EventCounty = r.GetString(5);
+                    eventItem.TicketPrice = (int)r.GetInt32(6);
+                    eventList.Add(eventItem);
+                    return eventList;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return null;
+        }
     }
 
 

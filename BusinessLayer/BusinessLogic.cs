@@ -64,8 +64,12 @@ namespace Business
         public bool InsertEvent(string eventName, string eventType, string eventVenue, string eventDateTime, string eventCounty, int ticketPrice)
         {
             Event currentEvent = new Event(eventName, eventType, eventVenue, eventDateTime, eventCounty, ticketPrice);
-            bool addEventStatus = da.InsertEventInfo(currentEvent);
+            
+            //Events eventList = new Events();
+            //eventList.AddEvent(eventName, eventType, eventVenue, eventDateTime, eventCounty, ticketPrice);
 
+            //Check if adding the event is successful
+            bool addEventStatus = da.InsertEventInfo(currentEvent);
             if (addEventStatus)
             {
                 return true;
@@ -112,5 +116,20 @@ namespace Business
             Order currentOrder = new Order(EventID, ticketQuantity, firstName, lastName, email, phoneNumber);
             da.InsertOrderInfo(currentOrder);
         }
+
+        //Search all events
+        public List<Event> SearchAllEvents()
+        {
+            List<Event> eventList =  da.SearchAllEvents();
+
+            if (eventList == null)
+            {
+                return null;
+            }
+            return eventList;
+        }
+
     }
+
 }
+

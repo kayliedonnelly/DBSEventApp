@@ -10,13 +10,21 @@ namespace Model
     {
         //Create a sorted list and list the properties
         public SortedList<int, int> items;
-        public string EventName { get; private set; }
-        public string EventType{ get; private set; }
-        public string EventVenue { get; private set; }
-        public string EventDateTime { get; private set; }
-        public string EventCounty { get; private set; }
-        public int TicketPrice { get; private set; }
+        public int EventID { get; set; }
+        public string EventName { get; set; }
+        public string EventType { get; set; }
+        public string EventVenue { get; set; }
+        public string EventDateTime { get; set; }
+        public string EventCounty { get; set; }
+        public int TicketPrice { get; set; }
 
+        //Default constructor
+        public Event()
+        {
+
+        }
+
+        //Overloaded constructor
         public Event(string eventName, string eventType, string eventVenue, string eventDateTime, string eventCounty, int ticketPrice)
         {
             items = new SortedList<int, int>();
@@ -27,6 +35,28 @@ namespace Model
             EventCounty = eventCounty;
             TicketPrice = ticketPrice;
         }
+
+        public Event(int eventID)
+        {
+            EventID = eventID;
+        }
+
+        //public List<Event> AddEvent(int eventID, string eventName, string eventType, string eventVenue, string eventDateTime, string eventCounty, int ticketPrice)
+        //{
+        //    List<Event> eventList = new List<Event>();
+        //    eventList.EventID = eventID;
+        //    eventList.EventName = eventName;
+        //    eventList.EventType = eventType;
+        //    eventList.EventVenue = eventVenue;
+        //    eventList.EventDateTime = eventDateTime;
+        //    eventItem.EventCounty = eventCounty;
+        //    eventItem.TicketPrice = ticketPrice;
+        //    return eventItem;
+        //}
+
+
+
+
 
     }
 }
