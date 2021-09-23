@@ -25,7 +25,7 @@
 --ALTER table Orders
 --add constraint UNQ_ORDER_ID unique (orderID)
 
-SELECT * FROM Orders
+--SELECT * FROM Orders
 --DROP Table Orders
 
 -------------------------------------------------------------------EVENT
@@ -52,13 +52,14 @@ SELECT * FROM Orders
 -------------------------------------------------------------------ORDERLINE
 
 --GO
---CREATE TABLE OrderLine(orderID INT, eventID INT, ticketQuantity INT,
---PRIMARY KEY(orderID,eventID),
---FOREIGN KEY(orderID) REFERENCES Orders(OrderID),
---FOREIGN KEY(orderID) REFERENCES Event(EventID)
+--CREATE TABLE OrderLine(
+--orderLineID INT IDENTITY(1,1) NOT NULL,
+--orderID INT NOT NULL, 
+--eventID INT NOT NULL,
+--ticketQuantity INT NOT NULL
 --);
 
---SELECT * FROM OrderLine
+SELECT * FROM OrderLine
 --DROP Table OrderLine
 
 

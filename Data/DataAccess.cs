@@ -152,7 +152,7 @@ namespace Data
             }
         }
 
-        //Update event details into the database
+        //Update event details in the database
         public bool UpdateEventInfo(int eventID, string eventNameUpdate, string eventTypeUpdate, string eventVenueUpdate, string eventDateTimeUpdate, string eventCountyUpdate, int ticketPriceUpdate)
         {
             SqlCommand c = new SqlCommand("UPDATE Event SET eventName = @eventNameUpdate, eventType = @eventTypeUpdate, eventVenue = @eventVenueUpdate, eventDateTime = @eventDateTimeUpdate, eventCounty = @eventCountyUpdate, ticketPrice = @ticketPriceUpdate WHERE eventID = @eventID", conn);
@@ -182,7 +182,7 @@ namespace Data
             }
         }
 
-        //Delete event details into the database
+        //Delete event details in the database
         public bool DeleteEventInfo(int eventIDDelete)
         {
             SqlCommand c = new SqlCommand("DELETE FROM * Event WHERE eventID = @eventIDDelete", conn);
@@ -232,12 +232,17 @@ namespace Data
             {
                 conn.Open();
                 cmd.ExecuteNonQuery();
+
                 SqlCommand c2 = new SqlCommand("SELECT IDENT_CURRENT('Orders')", conn);
                 object o1 = c2.ExecuteScalar();
                 orderID = int.Parse(o1.ToString());
-                SqlCommand c3 = new SqlCommand("INSERT INTO OrderLine" +
-                    "VALUES(@orderID,@eventID,@ticketQuantity)", conn);
+
+                SqlCommand c3 = new SqlCommand("INSERT INTO OrderLine (orderID, eventID, ticketQuantity)" +
+                    "VALUES(@orderID, @eventID, @ticketQuantity)", conn);
                 c3.Parameters.AddWithValue("@orderID", orderID);
+                c3.Parameters.AddWithValue("@eventID", eventID);
+                c3.Parameters.AddWithValue("@ticketQuantity", ticketQuantity);
+                c3.ExecuteNonQuery();
                 foreach (KeyValuePair<int, int> kv in o.items)
                 {
                     int key = kv.Key;
