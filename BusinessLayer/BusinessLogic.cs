@@ -129,6 +129,17 @@ namespace Business
             return eventList;
         }
 
+        //Search event by county
+        public List<Event> SearchEventCounty(string searchEventCounty)
+        {
+            List<Event> eventList = da.SearchEventCounty(searchEventCounty);
+
+            if (eventList == null)
+            {
+                return null;
+            }
+            return eventList;
+        }
     }
 
 }

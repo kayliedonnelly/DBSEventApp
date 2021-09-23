@@ -150,9 +150,9 @@ namespace EventsApp
                                                         break;
                                                     case 4:
                                                         //Search event
-                                                        Console.WriteLine("\n*****************Search Event***********************\n");
+                                                        Console.WriteLine("\n*******************Search Event***********************\n");
                                                         Console.WriteLine("1. Search all events");
-                                                        Console.WriteLine("2. Search for an event by location");
+                                                        Console.WriteLine("2. Search for an event by county");
                                                         Console.WriteLine("3. Return to Main Menu\n");
                                                         Console.Write("Please choose an option between 1-3: ");
                                                         int.TryParse(Console.ReadLine(), out option);
@@ -162,10 +162,12 @@ namespace EventsApp
                                                         {
                                                             //Search all events
                                                             case 1:
+                                                                //display a list of all events
                                                                 List<Event> eventList = bl.SearchAllEvents(); //Call the SearchAllEvents method in the BusinessLogic
-                                                                foreach(Event e in eventList)
+                                                                Console.WriteLine("\n*********************All Events***********************\n");
+                                                                Console.WriteLine("----------------------------------------------------");
+                                                                foreach (Event e in eventList)
                                                                 {
-                                                                    Console.WriteLine("\n*******************All Events***********************\n");
                                                                     Console.WriteLine("Event ID: " + e.EventID);
                                                                     Console.WriteLine("Event Name: " + e.EventName);
                                                                     Console.WriteLine("Event Type: " + e.EventType);
@@ -173,37 +175,110 @@ namespace EventsApp
                                                                     Console.WriteLine("Event Date and Time: " + e.EventDateTime);
                                                                     Console.WriteLine("Event County: " + e.EventCounty);
                                                                     Console.WriteLine("Event Ticket Price: " + e.TicketPrice);
+                                                                    Console.WriteLine("----------------------------------------------------");
                                                                 }
 
-                                                                //display a list of all events
-                                                                //Ask the user to choose an event 
-                                                                //Ask the user if they want to add, update, delete or buy tickets to the event
-                                                                //Order tickets to the event
+                                                                Console.WriteLine("\n*******************Options***********************\n");
+                                                                Console.WriteLine("1. Update event");
+                                                                Console.WriteLine("2. Delete event");
+                                                                Console.WriteLine("3. Purchase event ticket");
+                                                                Console.WriteLine("4. Return to Main Menu\n");
+                                                                Console.Write("Please choose an option between 1-4: ");
+                                                                int.TryParse(Console.ReadLine(), out option);
 
-                                                                //Ask the user for the order input
-                                                                Console.WriteLine("\n*****************Order Ticket***********************\n");
-                                                                Console.Write("Please enter the event ID: ");
-                                                                int.TryParse(Console.ReadLine(), out int EventID);
-                                                                Console.Write("Please enter the quantity of tickets: ");
-                                                                int.TryParse(Console.ReadLine(), out int ticketQuantity);
-                                                                Console.Write("Please enter your first name: ");
-                                                                string firstName = Console.ReadLine();
-                                                                Console.Write("Please enter your last name: ");
-                                                                string lastName = Console.ReadLine();
-                                                                Console.Write("Please enter your email address: ");
-                                                                string email = Console.ReadLine();
-                                                                Console.Write("Please enter your phone number: ");
-                                                                int.TryParse(Console.ReadLine(), out int phoneNumber);
-                                                                bl.InsertOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                switch (option)
+                                                                {
+                                                                    case 1:
+                                                                        break;
+                                                                    case 2:
+                                                                        break;
+                                                                    case 3:
+                                                                        //Ask the user to choose an event 
+                                                                        Console.Write("\nPlease enter the event ID to purchase a ticket: ");
+                                                                        int.TryParse(Console.ReadLine(), out int EventID);
+                                                                        Console.Write("Please enter the quantity of tickets: ");
+                                                                        int.TryParse(Console.ReadLine(), out int ticketQuantity);
 
-
+                                                                        //Ask the user enter to input their contact details
+                                                                        Console.WriteLine("\n*****************Contact Information***********************\n");
+                                                                        Console.Write("Please enter your first name: ");
+                                                                        string firstName = Console.ReadLine();
+                                                                        Console.Write("Please enter your last name: ");
+                                                                        string lastName = Console.ReadLine();
+                                                                        Console.Write("Please enter your email address: ");
+                                                                        string email = Console.ReadLine();
+                                                                        Console.Write("Please enter your phone number: ");
+                                                                        int.TryParse(Console.ReadLine(), out int phoneNumber);
+                                                                        bl.InsertOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                        break;
+                                                                    case 4:
+                                                                        break;
+                                                                    default:
+                                                                        break; 
+                                                                }
                                                                 break;
-                                                            //Search for an event by location
                                                             case 2:
-                                                                //display 
+                                                                //Search for an event by county
+                                                                Console.WriteLine("\n*********************Event County***********************\n");
+                                                                Console.Write("Please enter the event county: ");
+                                                                string searchEventCounty = Console.ReadLine();
+                                                                List<Event> eventListCounty = bl.SearchEventCounty(searchEventCounty); //Call the SearchEventCounty method in the BusinessLogic
+                                                                Console.WriteLine("\n----------------------------------------------------");
+                                                                foreach (Event e in eventListCounty)
+                                                                {
+                                                                    Console.WriteLine("Event ID: " + e.EventID);
+                                                                    Console.WriteLine("Event Name: " + e.EventName);
+                                                                    Console.WriteLine("Event Type: " + e.EventType);
+                                                                    Console.WriteLine("Event Venue: " + e.EventVenue);
+                                                                    Console.WriteLine("Event Date and Time: " + e.EventDateTime);
+                                                                    Console.WriteLine("Event County: " + e.EventCounty);
+                                                                    Console.WriteLine("Event Ticket Price: " + e.TicketPrice);
+                                                                    Console.WriteLine("----------------------------------------------------");
+                                                                }
+
+                                                                Console.WriteLine("\n*******************Options***********************\n");
+                                                                Console.WriteLine("1. Update event");
+                                                                Console.WriteLine("2. Delete event");
+                                                                Console.WriteLine("3. Purchase event ticket");
+                                                                Console.WriteLine("4. Return to Main Menu\n");
+                                                                Console.Write("Please choose an option between 1-4: ");
+                                                                int.TryParse(Console.ReadLine(), out option);
+
+                                                                switch (option)
+                                                                {
+                                                                    case 1:
+                                                                        break;
+                                                                    case 2:
+                                                                        break;
+                                                                    case 3:
+                                                                        //Ask the user to choose an event 
+                                                                        Console.Write("\nPlease enter the event ID to purchase a ticket: ");
+                                                                        int.TryParse(Console.ReadLine(), out int EventID);
+                                                                        Console.Write("Please enter the quantity of tickets: ");
+                                                                        int.TryParse(Console.ReadLine(), out int ticketQuantity);
+
+                                                                        //Ask the user enter to input their contact details
+                                                                        Console.WriteLine("\n*****************Contact Information***********************\n");
+                                                                        Console.Write("Please enter your first name: ");
+                                                                        string firstName = Console.ReadLine();
+                                                                        Console.Write("Please enter your last name: ");
+                                                                        string lastName = Console.ReadLine();
+                                                                        Console.Write("Please enter your email address: ");
+                                                                        string email = Console.ReadLine();
+                                                                        Console.Write("Please enter your phone number: ");
+                                                                        int.TryParse(Console.ReadLine(), out int phoneNumber);
+                                                                        bl.InsertOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                        break;
+                                                                    case 4:
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                                break;
                                                                 break;
                                                             case 3:
-                                                            //Return to main menu
+                                                                //Return to main menu
+                                                                break;
                                                             default:
                                                                 Console.WriteLine("Not a valid option. Please choose an option between 1-3.");
                                                                 break;

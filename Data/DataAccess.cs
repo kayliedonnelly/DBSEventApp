@@ -185,7 +185,7 @@ namespace Data
         //Delete event details into the database
         public bool DeleteEventInfo(int eventIDDelete)
         {
-            SqlCommand c = new SqlCommand("DELETE FROM Event WHERE eventID = @eventIDDelete", conn);
+            SqlCommand c = new SqlCommand("DELETE FROM * Event WHERE eventID = @eventIDDelete", conn);
             c.Parameters.AddWithValue("@eventIDDelete", eventIDDelete);
             conn.Open();
             try
@@ -254,10 +254,10 @@ namespace Data
             return orderID;
         }
 
-        //Get event details from the database
+        //Get all event details from the database
         public List<Event> SearchAllEvents()
         {
-            SqlCommand c = new SqlCommand("SELECT * from [Event]", conn);
+            SqlCommand c = new SqlCommand("SELECT * from Event", conn);
 
             try
             {
@@ -267,22 +267,72 @@ namespace Data
                 }
 
                 List<Event> eventList = new List<Event>();
-
                 SqlDataReader r = c.ExecuteReader();
 
-                while (r.Read())
+                while (r.HasRows)
                 {
-                    Event eventItem = new Event();
-                    eventItem.EventID = (int)r.GetInt32(0);
-                    eventItem.EventName = r.GetString(1);
-                    eventItem.EventType = r.GetString(2);
-                    eventItem.EventVenue = r.GetString(3);
-                    eventItem.EventDateTime = r.GetString(4);
-                    eventItem.EventCounty = r.GetString(5);
-                    eventItem.TicketPrice = (int)r.GetInt32(6);
-                    eventList.Add(eventItem);
-                    return eventList;
+
+                    while (r.Read())
+                    {
+                        Event eventItem = new Event
+                        {
+                            EventID = (int)r.GetInt32(0),
+                            EventName = r.GetString(1),
+                            EventType = r.GetString(2),
+                            EventVenue = r.GetString(3),
+                            EventDateTime = r.GetString(4),
+                            EventCounty = r.GetString(5),
+                            TicketPrice = (int)r.GetInt32(6)
+                        };
+                        eventList.Add(eventItem);
+                    }
+                    r.NextResult();
                 }
+                return eventList;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return null;
+        }
+
+        //Get all event details from the database
+        public List<Event> SearchEventCounty(string searchEventCounty)
+        {
+            SqlCommand c = new SqlCommand("SELECT * FROM [Event] WHERE eventCounty = @searchEventCounty", conn);
+            c.Parameters.AddWithValue("@searchEventCounty", searchEventCounty);
+
+            try
+            {
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                List<Event> eventList = new List<Event>();
+                SqlDataReader r = c.ExecuteReader();
+
+                while (r.HasRows)
+                {
+
+                    while (r.Read())
+                    {
+                        Event eventItem = new Event
+                        {
+                            EventID = (int)r.GetInt32(0),
+                            EventName = r.GetString(1),
+                            EventType = r.GetString(2),
+                            EventVenue = r.GetString(3),
+                            EventDateTime = r.GetString(4),
+                            EventCounty = r.GetString(5),
+                            TicketPrice = (int)r.GetInt32(6)
+                        };
+                        eventList.Add(eventItem);
+                    }
+                    r.NextResult();
+                }
+                return eventList;
             }
             finally
             {
