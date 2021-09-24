@@ -17,6 +17,10 @@ namespace Business
             da = new DataAccess(passwordConnect);
         }
 
+        public BusinessLogic()
+        {
+        }
+
 
         //Check if the connection is successful
         public bool UserConnect(string usernameConnect, string passwordConnect)
@@ -64,9 +68,6 @@ namespace Business
         public bool InsertEvent(string eventName, string eventType, string eventVenue, string eventDateTime, string eventCounty, int ticketPrice)
         {
             Event currentEvent = new Event(eventName, eventType, eventVenue, eventDateTime, eventCounty, ticketPrice);
-            
-            //Events eventList = new Events();
-            //eventList.AddEvent(eventName, eventType, eventVenue, eventDateTime, eventCounty, ticketPrice);
 
             //Check if adding the event is successful
             bool addEventStatus = da.InsertEventInfo(currentEvent);
