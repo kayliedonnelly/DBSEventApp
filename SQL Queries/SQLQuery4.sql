@@ -44,7 +44,7 @@
 --ALTER table Event
 --add constraint UNQ_EVENT_ID unique (eventID)
 
---SELECT * FROM Event
+SELECT * FROM Event
 --DROP Table Event
 
 --INSERT INTO Event VALUES('First Event', 'Seminar','The City Hall','21/9/21','Cork','10');
@@ -59,7 +59,7 @@
 --ticketQuantity INT NOT NULL
 --);
 
-SELECT * FROM OrderLine
+--SELECT * FROM OrderLine
 --DROP Table OrderLine
 
 
