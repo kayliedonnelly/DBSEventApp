@@ -299,7 +299,6 @@ namespace Data
             {
                 conn.Close();
             }
-            return null;
         }
 
         //Get all event details from the database
@@ -343,7 +342,6 @@ namespace Data
             {
                 conn.Close();
             }
-            return null;
         }
     }
 

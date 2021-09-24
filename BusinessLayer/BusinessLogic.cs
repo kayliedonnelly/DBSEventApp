@@ -112,10 +112,20 @@ namespace Business
         }
 
         //Create an order
-        public void InsertOrder(int EventID, int ticketQuantity, string firstName, string lastName, string email, int phoneNumber)
+        public bool InsertOrder(int EventID, int ticketQuantity, string firstName, string lastName, string email, int phoneNumber)
         {
             Order currentOrder = new Order(EventID, ticketQuantity, firstName, lastName, email, phoneNumber);
-            da.InsertOrderInfo(currentOrder);
+            int purchaseTicket = da.InsertOrderInfo(currentOrder);
+
+            if (purchaseTicket <= 1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
         }
 
         //Search all events

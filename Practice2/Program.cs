@@ -312,70 +312,172 @@ namespace EventsApp
                                                                                 switch (option)
                                                                                 {
                                                                                     case 1:
-                                                                                        //Update event
                                                                                         Console.WriteLine("\n******************Update Event************************\n");
                                                                                         Console.Write("Please enter the event ID: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int eventIDSignup);
-                                                                                        Console.Write("Please enter the event name: ");
-                                                                                        string eventNameUpdateSignup = Console.ReadLine();
-                                                                                        Console.Write("Please enter the event type: ");
-                                                                                        string eventTypeUpdateSignup = Console.ReadLine();
-                                                                                        Console.Write("Please enter the event venue: ");
-                                                                                        string eventVenueUpdateSignup = Console.ReadLine();
-                                                                                        Console.Write("Please enter the event date and time: ");
-                                                                                        string eventDateTimeUpdateSignup = Console.ReadLine();
-                                                                                        Console.Write("Please enter the event county: ");
-                                                                                        string eventCountyUpdateSignup = Console.ReadLine();
-                                                                                        Console.Write("Please enter the event ticket price: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int TicketPriceUpdateSignup);
-                                                                                        bool successEventUpdateSignup = bl.UpdateEvent(eventIDSignup, eventNameUpdateSignup, eventTypeUpdateSignup, eventVenueUpdateSignup, eventDateTimeUpdateSignup, eventCountyUpdateSignup, TicketPriceUpdateSignup); //Call the UpdateEvent method in the BusinessLogic
-                                                                                        if (successEventUpdateSignup)
+                                                                                        bool continueLooping9 = true;
+
+                                                                                        while (continueLooping9)
                                                                                         {
-                                                                                            Console.WriteLine("\nEvent Update Successful\n");
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            Console.WriteLine("\nFailed to update event.\n");
+                                                                                            if (int.TryParse(Console.ReadLine(), out int eventID))
+                                                                                            {
+                                                                                                Console.Write("Please enter the event name: ");
+                                                                                                string eventNameUpdate = Console.ReadLine();
+                                                                                                while (eventNameUpdate.Trim() == String.Empty)
+                                                                                                {
+                                                                                                    Console.Write("The new event name is required. Please enter the event name: ");
+                                                                                                    eventNameUpdate = Console.ReadLine();
+                                                                                                }
+                                                                                                Console.Write("Please enter the event type: ");
+                                                                                                string eventTypeUpdate = Console.ReadLine();
+                                                                                                while (eventTypeUpdate.Trim() == String.Empty)
+                                                                                                {
+                                                                                                    Console.Write("The new event type is required. Please enter the new event type: ");
+                                                                                                    eventTypeUpdate = Console.ReadLine();
+                                                                                                }
+                                                                                                Console.Write("Please enter the event venue: ");
+                                                                                                string eventVenueUpdate = Console.ReadLine();
+                                                                                                while (eventVenueUpdate.Trim() == String.Empty)
+                                                                                                {
+                                                                                                    Console.Write("The new event venue is required. Please enter the new event venue: ");
+                                                                                                    eventVenueUpdate = Console.ReadLine();
+                                                                                                }
+                                                                                                Console.Write("Please enter the event date and time: ");
+                                                                                                string eventDateTimeUpdate = Console.ReadLine();
+                                                                                                while (eventDateTimeUpdate.Trim() == String.Empty)
+                                                                                                {
+                                                                                                    Console.Write("The new event date and time are required. Please enter the event date and time: ");
+                                                                                                    eventDateTimeUpdate = Console.ReadLine();
+                                                                                                }
+                                                                                                Console.Write("Please enter the event county: ");
+                                                                                                string eventCountyUpdate = Console.ReadLine();
+                                                                                                while (eventCountyUpdate.Trim() == String.Empty)
+                                                                                                {
+                                                                                                    Console.Write("The new event county is required. Please enter the new event county: ");
+                                                                                                    eventCountyUpdate = Console.ReadLine();
+                                                                                                }
+                                                                                                Console.Write("Please enter the event ticket price: ");
+                                                                                                do
+                                                                                                {
+                                                                                                    if (int.TryParse(Console.ReadLine(), out int TicketPriceUpdate))
+                                                                                                    {
+                                                                                                        bool successEventUpdate = bl.UpdateEvent(eventID, eventNameUpdate, eventTypeUpdate, eventVenueUpdate, eventDateTimeUpdate, eventCountyUpdate, TicketPriceUpdate); //Call the UpdateEvent method in the BusinessLogic
+                                                                                                        if (successEventUpdate)
+                                                                                                        {
+                                                                                                            Console.WriteLine("\nEvent Update Successful\n");
+                                                                                                            continueLooping9 = false;
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            Console.WriteLine("\nFailed to update event. Event does not exist.\n");
+                                                                                                        }
+                                                                                                        break;
+
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        Console.Write("The ticket price must be a number. Please enter the ticket price: ");
+                                                                                                    }
+                                                                                                } while (1 == 1);
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                Console.Write("The event ID must be a number. Please enter the Event ID: ");
+                                                                                            }
                                                                                         }
                                                                                         break;
                                                                                     case 2:
                                                                                         //Delete event
                                                                                         Console.WriteLine("\n******************Delete Event************************\n");
                                                                                         Console.Write("Please enter the event ID: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int eventIDDeleteSignup);
-                                                                                        bool successEventDeleteSignup = bl.DeleteEvent(eventIDDeleteSignup); //Call the DeleteEvent method in the BusinessLogic
-                                                                                        if (successEventDeleteSignup)
+                                                                                        int.TryParse(Console.ReadLine(), out int eventIDDeleteOptions);
+
+                                                                                        bool successEventDeleteOptions = bl.DeleteEvent(eventIDDeleteOptions); //Call the DeleteEvent method in the BusinessLogic
+                                                                                        if (successEventDeleteOptions)
                                                                                         {
-                                                                                            Console.WriteLine("\nEvent Deleted Successfully\n");
+                                                                                            Console.WriteLine("\nEvent Deleted Successfully");
                                                                                         }
                                                                                         else
                                                                                         {
-                                                                                            Console.WriteLine("\nFailed to delete event.\n");
+                                                                                            Console.WriteLine("\nFailed to delete event. Event does not exist.");
                                                                                         }
                                                                                         break;
                                                                                     case 3:
                                                                                         //Ask the user to choose an event 
                                                                                         Console.WriteLine("\n*****************Purchase Ticket***********************\n");
-                                                                                        Console.Write("\nPlease enter the event ID to purchase a ticket: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int EventID);
-                                                                                        Console.Write("Please enter the quantity of tickets: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int ticketQuantity);
+                                                                                        Console.Write("Please enter the event ID to purchase a ticket: ");
+                                                                                        do
+                                                                                        {
+                                                                                            if (int.TryParse(Console.ReadLine(), out int eventID))
+                                                                                            {
 
-                                                                                        //Ask the user enter to input their contact details
-                                                                                        Console.WriteLine("\n*****************Contact Information***********************\n");
-                                                                                        Console.Write("Please enter your first name: ");
-                                                                                        string firstName = Console.ReadLine();
-                                                                                        Console.Write("Please enter your last name: ");
-                                                                                        string lastName = Console.ReadLine();
-                                                                                        Console.Write("Please enter your email address: ");
-                                                                                        string email = Console.ReadLine();
-                                                                                        Console.Write("Please enter your phone number: ");
-                                                                                        int.TryParse(Console.ReadLine(), out int phoneNumber);
-                                                                                        bl.InsertOrder(EventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                                                Console.Write("Please enter the quantity of tickets: ");
+                                                                                                do
+                                                                                                {
+                                                                                                    if (int.TryParse(Console.ReadLine(), out int ticketQuantity))
+                                                                                                    {
+
+                                                                                                        //Ask the user enter to input their contact details
+                                                                                                        Console.WriteLine("\n*****************Contact Information***********************\n");
+                                                                                                        Console.Write("Please enter your first name: ");
+                                                                                                        string firstName = Console.ReadLine();
+                                                                                                        while (firstName.Trim() == String.Empty)
+                                                                                                        {
+                                                                                                            Console.Write("The first name is required. Please enter the first name: ");
+                                                                                                            firstName = Console.ReadLine();
+                                                                                                        }
+                                                                                                        Console.Write("Please enter your last name: ");
+                                                                                                        string lastName = Console.ReadLine();
+                                                                                                        while (lastName.Trim() == String.Empty)
+                                                                                                        {
+                                                                                                            Console.Write("The last name is required. Please enter the last name: ");
+                                                                                                            lastName = Console.ReadLine();
+                                                                                                        }
+                                                                                                        Console.Write("Please enter your email address: ");
+                                                                                                        string email = Console.ReadLine();
+                                                                                                        while (email.Trim() == String.Empty)
+                                                                                                        {
+                                                                                                            Console.Write("The email is required. Please enter the email: ");
+                                                                                                            email = Console.ReadLine();
+                                                                                                        }
+                                                                                                        Console.Write("Please enter your phone number: ");
+                                                                                                        do
+                                                                                                        {
+                                                                                                            if (int.TryParse(Console.ReadLine(), out int phoneNumber))
+                                                                                                            {
+                                                                                                               
+                                                                                                                bool successPurchaseTicket = bl.InsertOrder(eventID, ticketQuantity, firstName, lastName, email, phoneNumber); //Call the Createrder method in BusinessLogic
+                                                                                                                if (successPurchaseTicket)
+                                                                                                                {
+                                                                                                                    Console.WriteLine("\nTicket Successfully Purchased");
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    Console.WriteLine("\nPurchase ticket failed. Event does not exist.");
+                                                                                                                }
+                                                                                                                break;
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                Console.Write("Must be a number. Please enter the phone number: ");
+                                                                                                            }
+                                                                                                        } while (1 == 1);
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        Console.Write("Must be a number. Please enter the ticket quantity: ");
+                                                                                                    }
+                                                                                                    break;
+                                                                                                } while (1 == 1);
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                Console.Write("Must be a number.");
+                                                                                            }
+                                                                                            break;
+                                                                                        } while (1 == 1);
                                                                                         break;
                                                                                     case 4:
                                                                                         //Return to main menu
-                                                                                        continueLooping5 = false;
                                                                                         continueLooping8 = false;
                                                                                         break;
                                                                                     case 5:
@@ -386,6 +488,8 @@ namespace EventsApp
                                                                                         continueLooping3 = false;
                                                                                         continuelooping4 = false;
                                                                                         continueLooping5 = false;
+                                                                                        continueLooping7 = false;
+                                                                                        continueLooping7 = false;
                                                                                         continueLooping8 = false;
                                                                                         break;
                                                                                     default:
@@ -455,7 +559,7 @@ namespace EventsApp
                                                                             }
                                                                             break;
                                                                         case 3:
-                                                                            //Return to main menu
+                                                                            continueLooping7 = false;
                                                                             break;
                                                                         case 4:
                                                                             //Quit
@@ -472,11 +576,15 @@ namespace EventsApp
                                                                             break;
                                                                     }
                                                                 }
-                                                                
                                                                 break;
                                                             case 5:
                                                                 //Quit
                                                                 Console.WriteLine("\nThank you for using the Events App. Goodbye.");
+                                                                continueLooping1 = false;
+                                                                continueLooping2 = false;
+                                                                continueLooping3 = false;
+                                                                continuelooping4 = false;
+                                                                continueLooping5 = false;
                                                                 break;
                                                             default:
                                                                 //Invalid option 
@@ -617,9 +725,7 @@ namespace EventsApp
                                                                 Console.WriteLine("\nNot a valid option\n");
                                                                 break;
                                                         }
-                                                        //break;
                                                     }
-                                                    
                                                 }
                                                 else
                                                 {
