@@ -25,7 +25,7 @@
 --ALTER table Orders
 --add constraint UNQ_ORDER_ID unique (orderID)
 
---SELECT * FROM Orders
+SELECT * FROM Orders
 --DROP Table Orders
 
 -------------------------------------------------------------------EVENT
@@ -44,7 +44,7 @@
 --ALTER table Event
 --add constraint UNQ_EVENT_ID unique (eventID)
 
-SELECT * FROM Event
+--SELECT * FROM Event
 --DROP Table Event
 
 --INSERT INTO Event VALUES('First Event', 'Seminar','The City Hall','21/9/21','Cork','10');

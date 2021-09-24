@@ -218,39 +218,60 @@ namespace Data
             string email = o.Email;
             int phoneNumber = o.PhoneNumber;
 
-            //Insert event values into the Orders table
-            SqlCommand cmd = new SqlCommand("INSERT INTO Orders" +
-                "(EventID,TicketQuantity,FirstName,LastName,Email,PhoneNumber) VALUES(" +
-                "@EventID,@ticketQuantity,@firstName,@lastName,@email,@phoneNumber);", conn);
-            cmd.Parameters.AddWithValue("@EventID", eventID);
-            cmd.Parameters.AddWithValue("@ticketQuantity", ticketQuantity);
-            cmd.Parameters.AddWithValue("@firstName", firstName);
-            cmd.Parameters.AddWithValue("@lastName", lastName);
-            cmd.Parameters.AddWithValue("@email", email);
-            cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+
+            //Check if EventID exists
+            SqlCommand c = new SqlCommand("SELECT * FROM [Event] WHERE eventID = @eventID", conn);
+            c.Parameters.AddWithValue("@eventID", eventID);
+
             try
             {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-
-                SqlCommand c2 = new SqlCommand("SELECT IDENT_CURRENT('Orders')", conn);
-                object o1 = c2.ExecuteScalar();
-                orderID = int.Parse(o1.ToString());
-
-                SqlCommand c3 = new SqlCommand("INSERT INTO OrderLine (orderID, eventID, ticketQuantity)" +
-                    "VALUES(@orderID, @eventID, @ticketQuantity)", conn);
-                c3.Parameters.AddWithValue("@orderID", orderID);
-                c3.Parameters.AddWithValue("@eventID", eventID);
-                c3.Parameters.AddWithValue("@ticketQuantity", ticketQuantity);
-                c3.ExecuteNonQuery();
-                foreach (KeyValuePair<int, int> kv in o.items)
+                if (conn.State != ConnectionState.Open)
                 {
-                    int key = kv.Key;
-                    int val = kv.Value;
-                    c3.Parameters.AddWithValue("@EventID", key);
-                    c3.Parameters.AddWithValue("@ticketQuantity", val);
-                    c3.ExecuteNonQuery();
+                    conn.Open();
                 }
+
+                object o1 = c.ExecuteScalar();
+
+                if(o1 != null)
+                {
+                    eventID = int.Parse(o1.ToString());
+
+                    //Insert event values into the Orders table
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Orders" +
+                        "(EventID,TicketQuantity,FirstName,LastName,Email,PhoneNumber) VALUES(" +
+                        "@EventID,@ticketQuantity,@firstName,@lastName,@email,@phoneNumber);", conn);
+                    cmd.Parameters.AddWithValue("@EventID", eventID);
+                    cmd.Parameters.AddWithValue("@ticketQuantity", ticketQuantity);
+                    cmd.Parameters.AddWithValue("@firstName", firstName);
+                    cmd.Parameters.AddWithValue("@lastName", lastName);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+
+                    cmd.ExecuteNonQuery();
+
+                    SqlCommand c2 = new SqlCommand("SELECT IDENT_CURRENT('Orders')", conn);
+                    object o2 = c2.ExecuteScalar();
+                    orderID = int.Parse(o2.ToString());
+
+                    SqlCommand c3 = new SqlCommand("INSERT INTO OrderLine (orderID, eventID, ticketQuantity)" +
+                        "VALUES(@orderID, @eventID, @ticketQuantity)", conn);
+                    c3.Parameters.AddWithValue("@orderID", orderID);
+                    c3.Parameters.AddWithValue("@eventID", eventID);
+                    c3.Parameters.AddWithValue("@ticketQuantity", ticketQuantity);
+                    c3.ExecuteNonQuery();
+                    foreach (KeyValuePair<int, int> kv in o.items)
+                    {
+                        int key = kv.Key;
+                        int val = kv.Value;
+                        c3.Parameters.AddWithValue("@EventID", key);
+                        c3.Parameters.AddWithValue("@ticketQuantity", val);
+                        c3.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    orderID = -1;
+                } 
             }
             finally
             {
