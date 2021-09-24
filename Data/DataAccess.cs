@@ -185,7 +185,7 @@ namespace Data
         //Delete event details in the database
         public bool DeleteEventInfo(int eventIDDelete)
         {
-            SqlCommand c = new SqlCommand("DELETE FROM * Event WHERE eventID = @eventIDDelete", conn);
+            SqlCommand c = new SqlCommand("DELETE FROM Event WHERE eventID = @eventIDDelete", conn);
             c.Parameters.AddWithValue("@eventIDDelete", eventIDDelete);
             conn.Open();
             try
